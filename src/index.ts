@@ -18,7 +18,7 @@ defineExtension('json-response', {
                     // Now, update the target element directly
                     // This assumes your JSON response has an 'ip' attribute
                     console.log(jsonResponse)
-                    target.innerHTML = JSON.stringify(jsonResponse["ip"]["cf-connecting-ip"])
+                    target.innerHTML = jsonResponse["ip"]["cf-connecting-ip"]
                 } catch (error) {
                     console.error('Error parsing JSON response:', error);
                     target.innerHTML = 'Error loading content';
