@@ -21,11 +21,7 @@ const cfWorker = () => {
 
 app.use('*', cfWorker());
 
-app.get('/api/test', (c) => {
-    return c.json({"Hello": 'Hono!'})
-})
-
-app.get('/api/whats-my-ip', (c) => {
+app.get('/api/ip', (c) => {
     return c.json({ip: c.req.header()})
 })
 

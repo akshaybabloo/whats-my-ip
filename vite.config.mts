@@ -10,13 +10,13 @@ export default defineConfig(({mode}) => {
             outDir: resolve(__dirname, 'dist'),
             rollupOptions: {
                 output: {
-                    assetFileNames: '[name][extname]',
-                    chunkFileNames: '[name].js',
-                    entryFileNames: '[name].js',
+                    assetFileNames: '[name]-[hash][extname]',
+                    chunkFileNames: '[name]-[hash].js',
+                    entryFileNames: '[name]-[hash].js',
                 },
                 input: {
-                    "functions/index": resolve(__dirname, './src/worker.ts'),
                     app: resolve(__dirname, './index.html'),
+                    "404": resolve(__dirname, './404.html'),
                 },
             }
         }
