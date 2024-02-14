@@ -2,13 +2,17 @@
   "name": "whats-my-ip",
   "module": "index.ts",
   "scripts": {
-    "build": "vite build",
-    "build:dev": "vite",
+    "web": "vite build -c vite.config.mts",
+    "web:dev": "vite  -c vite.config.mts",
+    "worker": "esbuild --bundle src/worker.ts --format=esm --outfile=./dist/_worker.js --platform=node --minify --sourcemap",
+    "worker:watch": "esbuild --bundle src/worker.ts --format=esm --outfile=./dist/_worker.js --platform=node --sourcemap --watch",
+    "build": "npm run web && npm run worker",
     "preview": "wrangler dev"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "autoprefixer": "^10.4.17",
+    "esbuild": "^0.20.0",
     "postcss": "^8.4.35",
     "sass": "^1.70.0",
     "tailwind": "^4.0.0",

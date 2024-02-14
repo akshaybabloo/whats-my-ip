@@ -15,7 +15,6 @@ const cfWorker = () => {
         if (!c.req.path.startsWith('/api')) {
             return await env.ASSETS.fetch(c.req.url)
         }
-        console.log('Fetching', env)
         await next()
     })
 }
@@ -24,6 +23,10 @@ app.use('*', cfWorker());
 
 app.get('/api/test', (c) => {
     return c.json({"Hello": 'Hono!'})
+})
+
+app.get('/api/whats-my-ip', (c) => {
+    return c.json({ip: c.req.header()})
 })
 
 export default app

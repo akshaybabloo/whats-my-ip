@@ -15,7 +15,7 @@ export default defineConfig(({mode}) => {
                     entryFileNames: '[name].js',
                 },
                 input: {
-                    "functions/api": resolve(__dirname, './src/worker.ts'),
+                    "functions/index": resolve(__dirname, './src/worker.ts'),
                     app: resolve(__dirname, './index.html'),
                 },
             }
