@@ -15,17 +15,23 @@
             <h1 class="mb-2 text-2xl font-bold text-white">Your IP Address</h1>
             <div class="link flex justify-center items-center mt-6">
                 <p hx-get="/api/ip" hx-trigger="load" hx-target="#ip-address" hx-ext="json-response"
-                   class="text-3xl font-bold text-white" id="ip-address">Loading...</p>
+                   class="text-3xl font-bold text-white" id="ip-address">
+                    <svg class="h-9 w-9 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity="0.25" />
+                        <path fill="currentColor" d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z">
+                            <animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12" />
+                        </path>
+                    </svg>
+                </p>
             </div>
 
-            <p class="text-gray-400 mt-6">Your data is never saved</p>
             <p class="text-gray-400 mt-6 flex justify-center items-center">Built with
                 <span class="mx-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="fill-red-600 h-4" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path
                             d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
                     </svg>
                 </span>by
-                <a href="http://gollahalli.com"
+                <a href="https://gollahalli.com"
                    class="mx-1 underline underline-offset-4 decoration-dotted hover:text-gray-300 transition duration-150 ease-out hover:ease-in">Akshay
                     Raj Gollahalli</a>
             </p>
