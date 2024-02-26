@@ -10,7 +10,6 @@
     "preview": "wrangler dev"
   },
   "devDependencies": {
-    "@types/bun": "latest",
     "autoprefixer": "^10.4.17",
     "esbuild": "^0.20.1",
     "postcss": "^8.4.35",
