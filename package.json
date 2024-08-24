@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20240423.0",
-    "countries-list": "^3.1.0",
+    "countries-list": "^3.1.1",
     "hono": "^4.5.8",
     "htmx.org": "^1.9.10"
   }
