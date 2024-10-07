@@ -27,6 +27,6 @@
     "@cloudflare/workers-types": "^4.20240925.0",
     "countries-list": "^3.1.1",
     "hono": "^4.6.3",
-    "htmx.org": "^1.9.12"
+    "htmx.org": "^2.0.3"
   }
 }
