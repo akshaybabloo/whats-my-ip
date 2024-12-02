@@ -24,7 +24,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@cloudflare/workers-types": "^4.20241112.0",
+    "@cloudflare/workers-types": "^4.20241127.0",
     "countries-list": "^3.1.1",
     "hono": "^4.6.11",
     "htmx.org": "^1.9.12"
