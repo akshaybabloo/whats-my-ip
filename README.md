@@ -11,6 +11,6 @@ npm install
 To run
 
 ```sh
-num run build
+npm run build
 npm run preview
 ```
