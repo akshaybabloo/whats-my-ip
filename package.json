@@ -25,6 +25,6 @@
     "axios": "^1.12.1",
     "countries-list": "^3.1.1",
     "hono": "^4.9.7",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.14"
   }
 }
