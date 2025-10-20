@@ -14,7 +14,7 @@
     "esbuild": "^0.25.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.7",
-    "wrangler": "^4.24.3"
+    "wrangler": "^4.43.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
