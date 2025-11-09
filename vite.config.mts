@@ -1,35 +1,18 @@
-import {defineConfig, loadEnv} from "vite";
-import {resolve} from "path";
-import tailwindcss from "@tailwindcss/vite";
+import { fileURLToPath, URL } from 'node:url'
 
-export default defineConfig(({mode}) => {
-    console.log("Build mode:", mode);
-    return {
-        plugins: [
-            tailwindcss(),
-        ],
-        build: {
-            sourcemap: true,
-            minify: mode === 'production',
-            outDir: resolve(__dirname, 'dist'),
-            rollupOptions: {
-                output: {
-                    assetFileNames: '[name]-[hash][extname]',
-                    chunkFileNames: '[name]-[hash].js',
-                    entryFileNames: '[name]-[hash].js',
-                },
-                input: {
-                    app: resolve(__dirname, './index.html'),
-                    "404": resolve(__dirname, './404.html'),
-                },
-            }
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueDevTools from 'vite-plugin-vue-devtools'
+
+import { cloudflare } from '@cloudflare/vite-plugin'
+import tailwindcss from '@tailwindcss/vite'
+
+// https://vite.dev/config/
+export default defineConfig({
+    plugins: [vue(), vueDevTools(), cloudflare(), tailwindcss()],
+    resolve: {
+        alias: {
+            '@': fileURLToPath(new URL('./src', import.meta.url)),
         },
-        css: {
-            preprocessorOptions: {
-                scss: {
-                    api: 'modern',
-                }
-            }
-        }
-    }
-});
+    },
+})

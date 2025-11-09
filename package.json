@@ -1,30 +1,42 @@
 {
-  "name": "whats-my-ip",
-  "module": "index.ts",
-  "scripts": {
-    "web": "vite build -c vite.config.mts",
-    "web:dev": "vite -c vite.config.mts",
-    "worker": "esbuild --bundle src/worker.ts --format=esm --outfile=./dist/_worker.js --platform=node --minify --sourcemap",
-    "worker:watch": "esbuild --bundle src/worker.ts --format=esm --outfile=./dist/_worker.js --platform=node --sourcemap --watch",
-    "build": "npm run web && npm run worker",
-    "preview": "wrangler dev ./dist/_worker.js"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "esbuild": "^0.25.0",
-    "typescript": "^5.8.3",
-    "vite": "^7.1.12",
-    "wrangler": "^4.46.0"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@cloudflare/workers-types": "^4.20251014.0",
-    "@tailwindcss/vite": "^4.1.13",
-    "axios": "^1.12.2",
-    "countries-list": "^3.1.1",
-    "hono": "^4.10.3",
-    "tailwindcss": "^4.1.16"
-  }
+    "name": "whats-my-ip",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "engines": {
+        "node": "^20.19.0 || >=22.12.0"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "run-p type-check \"build-only {@}\" --",
+        "preview": "npm run build && wrangler dev",
+        "build-only": "vite build",
+        "type-check": "vue-tsc --build",
+        "deploy": "npm run build && wrangler deploy",
+        "cf-typegen": "wrangler types",
+        "fmt": "prettier --write ."
+    },
+    "dependencies": {
+        "countries-list": "^3.2.0",
+        "daisyui": "^5.4.7",
+        "hono": "^4.10.4",
+        "tailwindcss": "^4.1.17",
+        "vue": "^3.5.22"
+    },
+    "devDependencies": {
+        "@cloudflare/vite-plugin": "^1.14.0",
+        "@cloudflare/workers-types": "^4.20251109.0",
+        "@tailwindcss/vite": "^4.1.17",
+        "@tsconfig/node22": "^22.0.2",
+        "@types/node": "^22.18.11",
+        "@vitejs/plugin-vue": "^6.0.1",
+        "@vue/tsconfig": "^0.8.1",
+        "npm-run-all2": "^8.0.4",
+        "prettier": "3.6.2",
+        "typescript": "~5.9.0",
+        "vite": "^7.1.11",
+        "vite-plugin-vue-devtools": "^8.0.3",
+        "vue-tsc": "^3.1.1",
+        "wrangler": "^4.46.0"
+    }
 }
