@@ -23,7 +23,7 @@
     "@cloudflare/workers-types": "^4.20251014.0",
     "@tailwindcss/vite": "^4.1.13",
     "axios": "^1.12.2",
-    "countries-list": "^3.1.1",
+    "countries-list": "^3.2.0",
     "hono": "^4.10.3",
     "tailwindcss": "^4.1.16"
   }
