@@ -1,6 +1,6 @@
 {
     "$schema": "node_modules/wrangler/config-schema.json",
-    "name": "whats-my-ip",
+    "name": "whats-my-ip-2",
     "compatibility_date": "2025-11-05",
     "main": "server/index.ts",
     "assets": {
