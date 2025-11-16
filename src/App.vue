@@ -2,6 +2,13 @@
 import type { ICountryData } from 'countries-list'
 import { onMounted, ref, watch } from 'vue'
 
+// Extend Window interface for AdSense
+declare global {
+    interface Window {
+        adsbygoogle: any[]
+    }
+}
+
 interface IpInfo {
     ip: string
     country: string
@@ -38,6 +45,13 @@ onMounted(() => {
 
     // Set initial theme
     setTheme(isDark.value)
+
+    // Initialize Google AdSense
+    try {
+        ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+    } catch (e) {
+        console.error('AdSense error:', e)
+    }
 })
 
 watch(isDark, (newVal) => {
@@ -88,6 +102,18 @@ watch(isDark, (newVal) => {
                     <button class="btn btn-primary btn-block" @click="getIP">Refresh</button>
                 </div>
             </div>
+        </div>
+
+        <!-- Google AdSense Display Ad -->
+        <div class="mt-4 w-96 max-w-full">
+            <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-7450383714878520"
+                data-ad-slot="5212548826"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+            ></ins>
         </div>
     </main>
     <footer class="fixed bottom-2 left-0 right-0 text-center text-sm text-gray-500">
