@@ -136,4 +136,3 @@ watch(isDark, (newVal) => {
         </p>
     </footer>
 </template>
-
