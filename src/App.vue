@@ -64,7 +64,7 @@ watch(isDark, (newVal) => {
         <div class="card w-96 bg-base-100 shadow-sm">
             <div class="card-body">
                 <div class="flex justify-between">
-                    <h2 class="text-2xl font-bold">Your IP</h2>
+                    <img src="/logo.png" alt="Logo" class="h-10 w-10" />
                     <span class="text-xl">
                         <label class="toggle text-base-content">
                             <input type="checkbox" v-model="isDark" />
@@ -108,7 +108,7 @@ watch(isDark, (newVal) => {
         <div class="mt-4 w-96 max-w-full">
             <ins
                 class="adsbygoogle"
-                style="display:block"
+                style="display: block"
                 data-ad-client="ca-pub-7450383714878520"
                 data-ad-slot="5212548826"
                 data-ad-format="auto"
