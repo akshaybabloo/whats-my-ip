@@ -1,5 +1,4 @@
-import { Hono, MiddlewareHandler } from 'hono'
-
+import { Hono } from 'hono'
 import { Fetcher } from '@cloudflare/workers-types'
 import { getCountryData, ICountryData, TCountryCode } from 'countries-list'
 
@@ -16,19 +15,31 @@ interface IpInfo {
 const app = new Hono<{ Bindings: Bindings }>()
 
 app.get('/api/ip', (c) => {
-    var request = c.req.header()
-    var ip = request['cf-connecting-ip'] ? request['cf-connecting-ip'] : 'Unable to get IP'
-    var country = request['cf-ipcountry']
-        ? getCountryData(request['cf-ipcountry'] as TCountryCode).name
-        : 'Unable to get country'
-    var info = request['cf-ipcountry']
-        ? getCountryData(request['cf-ipcountry'] as TCountryCode)
-        : 'Unable to get country'
+    const headers = c.req.header()
+    const ip = headers['cf-connecting-ip'] || 'Unable to get IP'
+    const countryCode = headers['cf-ipcountry']
+
+    let country: string
+    let info: ICountryData | string
+
+    if (countryCode) {
+        try {
+            const countryData = getCountryData(countryCode as TCountryCode)
+            country = countryData.name
+            info = countryData
+        } catch (error) {
+            country = 'Unable to get country'
+            info = 'Unable to get country'
+        }
+    } else {
+        country = 'Unable to get country'
+        info = 'Unable to get country'
+    }
 
     return c.json<IpInfo>({
-        ip: ip,
-        country: country,
-        info: info,
+        ip,
+        country,
+        info,
     })
 })
 
