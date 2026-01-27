@@ -19,7 +19,7 @@
     "dependencies": {
         "countries-list": "^3.2.2",
         "daisyui": "^5.4.7",
-        "hono": "^4.11.5",
+        "hono": "^4.11.7",
         "tailwindcss": "^4.1.17",
         "vue": "^3.5.27"
     },
