@@ -24,7 +24,7 @@
         "vue": "^3.5.27"
     },
     "devDependencies": {
-        "@cloudflare/vite-plugin": "^1.21.1",
+        "@cloudflare/vite-plugin": "^1.32.3",
         "@cloudflare/workers-types": "^4.20251205.0",
         "@tailwindcss/vite": "^4.1.18",
         "@tsconfig/node22": "^22.0.5",
@@ -37,6 +37,6 @@
         "vite": "^7.3.2",
         "vite-plugin-vue-devtools": "^8.0.5",
         "vue-tsc": "^3.2.2",
-        "wrangler": "^4.61.1"
+        "wrangler": "^4.83.0"
     }
 }
