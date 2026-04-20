@@ -20,7 +20,7 @@
         "countries-list": "^3.2.2",
         "daisyui": "^5.4.7",
         "hono": "^4.12.14",
-        "tailwindcss": "^4.1.17",
+        "tailwindcss": "^4.2.2",
         "vue": "^3.5.27"
     },
     "devDependencies": {
