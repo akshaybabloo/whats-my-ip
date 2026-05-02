@@ -60,7 +60,16 @@
 		errorMsg = null;
 		try {
 			const res = await fetch('/api/rdap');
-			const body: unknown = await res.json();
+			const text = await res.text();
+			let body: unknown;
+			try {
+				body = JSON.parse(text);
+			} catch {
+				errorMsg = res.ok
+					? 'Invalid JSON from RDAP service'
+					: text || `Request failed (${res.status})`;
+				return;
+			}
 			if (!res.ok) {
 				const msg =
 					body && typeof body === 'object' && 'message' in body && typeof body.message === 'string'

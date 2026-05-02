@@ -23,7 +23,8 @@ export const GET: RequestHandler = async ({ request }) => {
 		if (e instanceof DOMException && e.name === 'TimeoutError') {
 			throw error(504, 'RDAP lookup timed out');
 		}
-		throw e;
+		console.error('RDAP upstream fetch failed', e);
+		throw error(502, 'Upstream RDAP service error');
 	}
 
 	if (!upstream.ok) {
@@ -38,6 +39,6 @@ export const GET: RequestHandler = async ({ request }) => {
 	}
 
 	return json(data, {
-		headers: { 'cache-control': 'public, max-age=3600' }
+		headers: { 'cache-control': 'private, max-age=3600' }
 	});
 };
