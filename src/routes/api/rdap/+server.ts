@@ -13,7 +13,10 @@ export const GET: RequestHandler = async ({ request }) => {
 	let upstream: Response;
 	try {
 		upstream = await fetch(`https://rdap.org/ip/${encodeURIComponent(parsed.data)}`, {
-			headers: { Accept: 'application/rdap+json' },
+			headers: {
+				Accept: 'application/rdap+json',
+				'User-Agent': 'whats-my-ip/1.0 (+https://ip.gollahalli.com)'
+			},
 			signal: AbortSignal.timeout(5000)
 		});
 	} catch (e) {
