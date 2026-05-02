@@ -93,8 +93,9 @@
 
 	const cidr = $derived.by(() => {
 		const c = data?.cidr0_cidrs?.[0];
-		if (!c) return undefined;
-		return `${c.v4prefix ?? c.v6prefix}/${c.length}`;
+		const prefix = c?.v4prefix ?? c?.v6prefix;
+		if (!c || !prefix) return undefined;
+		return `${prefix}/${c.length}`;
 	});
 
 	const abuse = $derived.by(() => {
@@ -174,6 +175,7 @@
 						size="sm"
 						class="w-full text-xs"
 						onclick={() => (showRaw = !showRaw)}
+						aria-expanded={showRaw}
 					>
 						{showRaw ? 'Hide' : 'Show'} raw JSON
 					</Button>

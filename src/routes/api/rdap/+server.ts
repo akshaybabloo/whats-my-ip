@@ -10,15 +10,30 @@ export const GET: RequestHandler = async ({ request }) => {
 		throw error(400, 'No valid connecting IP available');
 	}
 
-	const upstream = await fetch(`https://rdap.org/ip/${encodeURIComponent(parsed.data)}`, {
-		headers: { Accept: 'application/rdap+json' }
-	});
+	let upstream: Response;
+	try {
+		upstream = await fetch(`https://rdap.org/ip/${encodeURIComponent(parsed.data)}`, {
+			headers: { Accept: 'application/rdap+json' },
+			signal: AbortSignal.timeout(5000)
+		});
+	} catch (e) {
+		if (e instanceof DOMException && e.name === 'TimeoutError') {
+			throw error(504, 'RDAP lookup timed out');
+		}
+		throw e;
+	}
 
 	if (!upstream.ok) {
 		throw error(upstream.status, `RDAP lookup failed (${upstream.status})`);
 	}
 
-	const data = await upstream.json();
+	let data: unknown;
+	try {
+		data = await upstream.json();
+	} catch {
+		throw error(502, 'Invalid JSON from RDAP server');
+	}
+
 	return json(data, {
 		headers: { 'cache-control': 'public, max-age=3600' }
 	});
