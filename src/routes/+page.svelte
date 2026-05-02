@@ -7,6 +7,7 @@
 	import Loader from '@lucide/svelte/icons/loader-circle';
 	import RefreshCw from '@lucide/svelte/icons/refresh-cw';
 	import Heart from '@lucide/svelte/icons/heart';
+	import RdapDetails from '$lib/components/rdap-details.svelte';
 	import type { IpInfo } from '$lib/server/get-ip-info';
 
 	let { data }: { data: IpInfo } = $props();
@@ -78,7 +79,7 @@
 						/>
 					</li>
 				{:else}
-					<li>{ipData.ip}</li>
+					<li class={ipData.ip.includes(':') ? 'text-xl break-all' : ''}>{ipData.ip}</li>
 					<li>{ipData.country}</li>
 				{/if}
 			</ul>
@@ -89,6 +90,8 @@
 					Refresh
 				</Button>
 			</div>
+
+			<RdapDetails />
 		</CardContent>
 	</Card>
 
