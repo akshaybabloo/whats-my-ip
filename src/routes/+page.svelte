@@ -79,7 +79,7 @@
 						/>
 					</li>
 				{:else}
-					<li>{ipData.ip}</li>
+					<li class={ipData.ip.includes(':') ? 'text-xl break-all' : ''}>{ipData.ip}</li>
 					<li>{ipData.country}</li>
 				{/if}
 			</ul>
