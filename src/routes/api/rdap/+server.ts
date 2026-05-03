@@ -1,5 +1,6 @@
 import { error, json } from '@sveltejs/kit';
 import { z } from 'zod';
+import { resolveRdapServer } from '$lib/server/rdap-lookup';
 import type { RequestHandler } from './$types';
 
 const IpSchema = z.union([z.ipv4(), z.ipv6()]);
@@ -10,14 +11,19 @@ export const GET: RequestHandler = async ({ request }) => {
 		throw error(400, 'No valid connecting IP available');
 	}
 
+	const base = resolveRdapServer(parsed.data);
+	if (!base) {
+		throw error(404, 'No RDAP service registered for this IP range');
+	}
+
 	let upstream: Response;
 	try {
-		upstream = await fetch(`https://rdap.org/ip/${encodeURIComponent(parsed.data)}`, {
+		upstream = await fetch(`${base}ip/${encodeURIComponent(parsed.data)}`, {
 			headers: {
 				Accept: 'application/rdap+json',
 				'User-Agent': 'whats-my-ip/1.0 (+https://ip.gollahalli.com)'
 			},
-			signal: AbortSignal.timeout(5000)
+			signal: AbortSignal.timeout(8000)
 		});
 	} catch (e) {
 		if (e instanceof DOMException && e.name === 'TimeoutError') {

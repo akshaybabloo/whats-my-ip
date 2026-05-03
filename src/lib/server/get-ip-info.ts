@@ -16,8 +16,13 @@ export function getIpInfo(request: Request): IpInfo {
 	if (countryCode) {
 		try {
 			const data = getCountryData(countryCode as TCountryCode);
-			country = data.name;
-			info = data;
+			if (data.name) {
+				country = data.name;
+				info = data;
+			} else {
+				country = 'Unable to get country';
+				info = 'Unable to get country';
+			}
 		} catch {
 			country = 'Unable to get country';
 			info = 'Unable to get country';
