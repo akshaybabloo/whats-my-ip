@@ -24,7 +24,10 @@ describe('ipv4ToBigInt', () => {
 		['1.2.3.a', 'non-numeric octet'],
 		['1.2.3.4.', 'trailing dot'],
 		['', 'empty string'],
-		['1.2.3.04a', 'mixed octet']
+		['1.2.3.04a', 'mixed octet'],
+		['1..3.4', 'empty middle octet'],
+		['0x10.0.0.1', 'hex-prefixed octet'],
+		['1e2.0.0.1', 'scientific-notation octet']
 	])('rejects %s (%s)', (ip) => {
 		expect(() => ipv4ToBigInt(ip)).toThrow(/Invalid IPv4/);
 	});
@@ -85,7 +88,10 @@ describe('ipv6ToBigInt', () => {
 		['1:2:3:4:5:6:7', '7 groups, no compression'],
 		['', 'empty string'],
 		[':1:2:3:4:5:6:7:8', 'leading single colon'],
-		['1:2:3:4:5:6:7:8:', 'trailing single colon']
+		['1:2:3:4:5:6:7:8:', 'trailing single colon'],
+		['1g::', 'invalid hex character'],
+		['0x1::', 'hex-prefixed hextet'],
+		['::ffff:192.0.2.1', 'IPv4-mapped IPv6 (dotted hextet)']
 	])('rejects %s (%s)', (ip) => {
 		expect(() => ipv6ToBigInt(ip)).toThrow(/Invalid IPv6/);
 	});

@@ -1,16 +1,21 @@
 import { RDAP_BOOTSTRAP_V4, RDAP_BOOTSTRAP_V6, type RdapBootstrap } from './rdap-bootstrap';
 
+const IPV4_OCTET = /^\d{1,3}$/;
+
 export const ipv4ToBigInt = (ip: string): bigint => {
 	const parts = ip.split('.');
 	if (parts.length !== 4) throw new Error(`Invalid IPv4: ${ip}`);
 	let result = 0n;
 	for (const p of parts) {
-		const n = Number(p);
-		if (!Number.isInteger(n) || n < 0 || n > 255) throw new Error(`Invalid IPv4: ${ip}`);
+		if (!IPV4_OCTET.test(p)) throw new Error(`Invalid IPv4: ${ip}`);
+		const n = parseInt(p, 10);
+		if (n > 255) throw new Error(`Invalid IPv4: ${ip}`);
 		result = (result << 8n) | BigInt(n);
 	}
 	return result;
 };
+
+const IPV6_HEXTET = /^[0-9A-Fa-f]{1,4}$/;
 
 export const ipv6ToBigInt = (ip: string): bigint => {
 	const sides = ip.split('::');
@@ -23,9 +28,8 @@ export const ipv6ToBigInt = (ip: string): bigint => {
 	if (groups.length !== 8) throw new Error(`Invalid IPv6: ${ip}`);
 	let result = 0n;
 	for (const g of groups) {
-		const n = parseInt(g, 16);
-		if (Number.isNaN(n) || n < 0 || n > 0xffff) throw new Error(`Invalid IPv6: ${ip}`);
-		result = (result << 16n) | BigInt(n);
+		if (!IPV6_HEXTET.test(g)) throw new Error(`Invalid IPv6: ${ip}`);
+		result = (result << 16n) | BigInt(parseInt(g, 16));
 	}
 	return result;
 };
