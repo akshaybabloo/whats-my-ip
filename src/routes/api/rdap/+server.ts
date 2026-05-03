@@ -11,7 +11,12 @@ export const GET: RequestHandler = async ({ request }) => {
 		throw error(400, 'No valid connecting IP available');
 	}
 
-	const base = resolveRdapServer(parsed.data);
+	let base: string | null;
+	try {
+		base = resolveRdapServer(parsed.data);
+	} catch {
+		throw error(400, 'Unsupported IP address format');
+	}
 	if (!base) {
 		throw error(404, 'No RDAP service registered for this IP range');
 	}

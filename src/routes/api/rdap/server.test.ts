@@ -45,6 +45,13 @@ describe('GET /api/rdap', () => {
 		await expect(GET(buildEvent('not-an-ip'))).rejects.toMatchObject({ status: 400 });
 	});
 
+	it('returns 400 for IPv6 forms zod accepts but the lookup cannot parse (IPv4-mapped IPv6)', async () => {
+		await expect(GET(buildEvent('::ffff:192.0.2.1'))).rejects.toMatchObject({
+			status: 400,
+			body: { message: 'Unsupported IP address format' }
+		});
+	});
+
 	it('returns 404 for IPs with no RIR mapping (e.g. loopback)', async () => {
 		await expect(GET(buildEvent('127.0.0.1'))).rejects.toMatchObject({
 			status: 404,
