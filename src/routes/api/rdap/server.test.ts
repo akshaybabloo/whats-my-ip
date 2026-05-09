@@ -67,7 +67,7 @@ describe('GET /api/rdap', () => {
 		const res = await GET(buildEvent('1.1.1.1'));
 
 		expect(res.status).toBe(200);
-		expect(res.headers.get('cache-control')).toBe('private, max-age=3600');
+		expect(res.headers.get('cache-control')).toBe('no-store');
 		expect(await res.json()).toEqual({ handle: 'AS-13335', name: 'CLOUDFLARENET' });
 
 		expect(fetchMock).toHaveBeenCalledTimes(1);

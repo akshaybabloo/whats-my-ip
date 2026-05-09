@@ -50,6 +50,6 @@ export const GET: RequestHandler = async ({ request }) => {
 	}
 
 	return json(data, {
-		headers: { 'cache-control': 'private, max-age=3600' }
+		headers: { 'cache-control': 'no-store' }
 	});
 };
