@@ -97,6 +97,13 @@
 		if (open) load();
 	};
 
+	export const reload = () => {
+		data = null;
+		raw = null;
+		errorMsg = null;
+		if (open) load();
+	};
+
 	const eventDate = (action: string) =>
 		data?.events?.find((e) => e.eventAction === action)?.eventDate?.split('T')[0];
 
@@ -125,7 +132,7 @@
 	<Button variant="outline" class="w-full justify-between" onclick={toggle} aria-expanded={open}>
 		<span class="inline-flex items-center gap-2">
 			<Globe class="size-4" />
-			RDAP details
+			More information
 		</span>
 		<ChevronDown class={open ? 'size-4 rotate-180 transition' : 'size-4 transition'} />
 	</Button>

@@ -15,6 +15,7 @@
 	let refreshed = $state<IpInfo | null>(null);
 	let loading = $state(false);
 	let isDark = $state(false);
+	let rdapRef = $state<ReturnType<typeof RdapDetails> | null>(null);
 
 	const ipData = $derived(loading ? undefined : (refreshed ?? data));
 
@@ -35,6 +36,7 @@
 		try {
 			const res = await fetch('/api/ip');
 			refreshed = await res.json();
+			rdapRef?.reload();
 		} finally {
 			loading = false;
 		}
@@ -91,7 +93,7 @@
 				</Button>
 			</div>
 
-			<RdapDetails />
+			<RdapDetails bind:this={rdapRef} />
 		</CardContent>
 	</Card>
 
