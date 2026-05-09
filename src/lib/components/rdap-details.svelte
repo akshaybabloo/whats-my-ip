@@ -54,12 +54,16 @@
 	let raw = $state<unknown>(null);
 	let showRaw = $state(false);
 
+	let currentAbortController: AbortController | null = null;
+
 	const load = async () => {
 		if (data) return;
+		const controller = new AbortController();
+		currentAbortController = controller;
 		loading = true;
 		errorMsg = null;
 		try {
-			const res = await fetch('/api/rdap');
+			const res = await fetch('/api/rdap', { signal: controller.signal });
 			const text = await res.text();
 			let body: unknown;
 			try {
@@ -78,17 +82,21 @@
 				errorMsg = msg;
 				return;
 			}
-			raw = body;
 			const parsed = RdapResponse.safeParse(body);
 			if (!parsed.success) {
 				errorMsg = 'Unexpected RDAP response shape';
 				return;
 			}
+			raw = body;
 			data = parsed.data;
 		} catch (e) {
+			if (e instanceof DOMException && e.name === 'AbortError') return;
 			errorMsg = e instanceof Error ? e.message : 'Failed to load RDAP data';
 		} finally {
-			loading = false;
+			if (currentAbortController === controller) {
+				currentAbortController = null;
+				loading = false;
+			}
 		}
 	};
 
@@ -98,6 +106,9 @@
 	};
 
 	export const reload = () => {
+		currentAbortController?.abort();
+		currentAbortController = null;
+		loading = false;
 		data = null;
 		raw = null;
 		errorMsg = null;
